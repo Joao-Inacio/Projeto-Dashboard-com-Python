@@ -2,12 +2,11 @@ import json
 
 import dash
 import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from dash import dcc, html
 from dash.dependencies import Input, Output
 
 # Importação da base de dados
@@ -30,7 +29,9 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
 
 # Criando o mapa
 fig = px.choropleth_mapbox(
-    df_states_, locations="estado", color="casosNovos", center={"lat": -16.95, "lon": -47.78}, geojson=brazil_states, color_continuous_scale="Redor", opacity=0.4,
+    df_states_, locations="estado", color="casosNovos",
+    center={"lat": -16.95, "lon": -47.78}, geojson=brazil_states,
+    color_continuous_scale="Redor", opacity=0.4,
     hover_data={"casosAcumulado": True, "casosNovos": True,
                 "obitosNovos": True, "estado": True}
 )
@@ -46,6 +47,7 @@ app.layout = dbc.Container(
         ])
     ])
 )
+
 if __name__ == "__main__":
     # rodando
     app.run_server(debug=True)
